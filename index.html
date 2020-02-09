@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<title>Kopa Lodge</title>
+	<meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/animate.min.css" rel="stylesheet">
+    <link href="css/hover-min.css" rel="stylesheet">
+    <link href="css/nouislider.min.css" rel="stylesheet">
+    <link rel="shortcut icon" type="image/png" href="images/logo.png"/>
+    <link href="https://fonts.googleapis.com/css?family=Lato|Poppins&display=swap" rel="stylesheet">
+</head>
+<body style="background: blue;">
+    <header>
+        <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+            <div class="container-fluid">
+              <!-- Brand -->
+              <a class="navbar-brand" href="#">Logo</a>
+
+              <!-- Toggler/collapsibe Button -->
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+
+              <!-- Navbar links -->
+              <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                <ul class="navbar-nav ml-auto">
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+        </nav>
+        <div class="container">
+            <div class="register-wrapper">
+                <h1>Book unique places to stay and things to do.</h1>
+                <form>
+                    <div id="apartment-details">
+                        <div class="form-group">
+                            <label for="apartment">Apartment Type</label>
+                            <select id="apartment" class="form-control">
+                                <option value="">One bedroom apartment</option>
+                                <option value="">Two bedroom apartment</option>
+                            </select>
+                        </div>
+                        <p class="error-message">Please provide your preferred apartment type</p>
+                        <div class="form-group">
+                            <label for="location">State</label>
+                            <select id="location" class="form-control">
+                                <option value="">Ondo State</option>
+                                <option value="">Oyo State</option>
+                            </select>
+                        </div>
+                        <p class="error-message">Please choose your preferred state</p>
+                        <div class="form-group">
+                            <label for="location">Local Government</label>
+                            <select id="location" class="form-control">
+                                <option value="">Akure South</option>
+                                <option value="">Owo</option>
+                            </select>
+                        </div>
+                        <p class="error-message">Please choose your preferred local government</p>
+                        <div class="form-group">
+                            <label for="area">Area</label>
+                            <input type="text" name="area" id="area" class="form-control" placeholder="Area" required>
+                        </div>
+                        <p class="error-message">Please choose your preferred area</p>
+                        <div class="style-1 wrapper m-b-50 m-t-50 p-l-r">
+                            <label for="budget">Budget</label>
+                            <div class="slider-range m-b-20" style="margin-top: 5px;"></div>
+                            <span class="slider-range-value"></span>
+                        </div>
+                        <p class="error-message">Please choose your preferred budget</p>
+                        <div class="text-right">
+                            <button class="btn btn-primary next">Next</button>
+                        </div>
+                    </div>
+                    <div id="personal-details" style="display: none;">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" name="name" id="name" class="form-control" placeholder="Name" required>
+                        </div>
+                        <p class="error-message">Please provide your name</p>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" name="email" id="email" class="form-control" placeholder="Email" required>
+                        </div>
+                        <p class="error-message">Please provide your email address</p>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="phone" name="phone" id="phone" class="form-control" placeholder="Phone Number" required>
+                        </div>
+                        <p class="error-message">Please provide your phone number</p>
+                        <div class="text-right">
+                            <button type="submit" class="btn btn-primary submit">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </header>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/nouislider.min.js"></script>
+    <script>
+        $('.next').click(function(e){
+            e.preventDefault();
+            $('#apartment-details').hide();
+            $('#personal-details').show();
+        });
+
+        // nouislider range
+
+        var rangeSlider = document.querySelector(".slider-range");
+
+        noUiSlider.create(rangeSlider, {
+          start: [75000],
+          connect: [true, false],
+          step: 1,
+          range: {
+            min: [50000],
+            max: [250000]
+          }
+        });
+
+        /* begin Value  */
+        var rangeSliderValueElement = document.querySelector(".slider-range-value");
+
+        rangeSlider.noUiSlider.on("update", function(values, handle) {
+          rangeSliderValueElement.innerHTML = values[handle];
+        });
+        /* end Value  */
+
+        /* begin Tab */
+        var handle = rangeSlider.querySelector(".noUi-handle");
+
+        handle.setAttribute("tabindex", 0);
+
+        handle.addEventListener("click", function() {
+          this.focus();
+        });
+
+        handle.addEventListener("keydown", function(event) {
+          var value = Number(rangeSlider.noUiSlider.get());
+
+          switch (event.which) {
+            case 37:
+              rangeSlider.noUiSlider.set(value - 1);
+              break;
+            case 39:
+              rangeSlider.noUiSlider.set(value + 1);
+              break;
+          }
+        });
+    </script>
+</body>
+</html>
